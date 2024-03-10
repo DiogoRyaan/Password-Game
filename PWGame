@@ -1,0 +1,136 @@
+package jogosenha;
+import java.util.Scanner;
+import java.util.Random;
+public class JogoSenha {
+	public static void main (String []args) {
+	 menu();
+	 }
+	 public static void menu () {
+	 Scanner menu = new Scanner (System.in);
+	 System.out.print ("Welcome, enter your name to get started: ");
+	 String nomeusuario = menu.nextLine();
+	 System.out.println("Hi, "+nomeusuario+" do you know the password game?\nIf you already know the rules, type 1, if not, type 2: ");
+	 int opc = menu.nextInt();
+	
+	 switch (opc) {
+	
+	 case 1:
+jogo();
+break;
+	 case 2:
+	 regras();
+	 System.out.println ("If you have finished reading, type 1.");
+	 int confirmacao = menu.nextInt();
+	 if (confirmacao == 1 ) {
+	 jogo();
+	 }else {
+	 	 System.out.println ("\nEnough of the nonsense, right? Start everything over.");
+	 	 menu();
+	 }
+	
+	 default:
+	 System.out.println ("Enter a valid entry, 1 to access the game or 2 to access the rules: ");
+	 int entradavalida = menu.nextInt();
+	 if (entradavalida == 1 ) {
+	 jogo();
+	 }else if (entradavalida == 2) {
+	 	 regras();
+	 	 System.out.println ("If you have finished reading, type 1.");
+		 confirmacao = menu.nextInt();
+		 if (confirmacao == 1 ) {
+		 jogo();
+	 } else {
+	 	 System.out.println ("\nEnough of the nonsense, right? Start all over again.");
+	 menu();
+	 }
+	 break;
+	 }}
+}
+public static void regras () {
+System.out.println ("I. The program will generate a sequence of 4 numbers from 1 to 6.\n "
++ "II. The user is entitled to 10 attempts and when they are equivalent to 0 the game will be ended..\n"
++ "III. The user must only enter NUMBERS into the terminal in vertical form.\n"
++ "IV. If a number is moved between houses, the user will be notified.\n"
++ "V. As a prize, the user receives a great mangaba juice.\n"
++ "VI. If you lose, the user owes each team member a mangaba juice.\n"
++ "VII. Good luck, you'll need it! 🙂 ");
+}
+public static void jogo () {
+	 int contador = 0;
+	 Random gerador = new Random();
+	 Scanner lerjogo = new Scanner(System.in);
+	 int senhacorretaArray[] = new int[4];
+	 int senhatentativa[] = new int[4];
+	 for (int i = 0; i < 4; i++) {
+	 senhacorretaArray[i] = gerador.nextInt(1, 6);
+	 }
+	
+	 while (contador < 11) {
+	 System.out.println("Make your attempt: ");
+	 for (int c = 0; c < 4; c++) {
+	 senhatentativa[c] = lerjogo.nextInt();
+	 }
+	
+	 int digitosCorretos = 0;
+	 int digitosDeslocados = 0;
+	 for (int i = 0; i < 4; i++) {
+	 if (senhatentativa[i] == senhacorretaArray[i]) {
+	 digitosCorretos++;
+	 } else {
+	 for (int j = 0; j < 4; j++) {
+	 if (senhatentativa[i] == senhacorretaArray[j]) {
+	 digitosDeslocados++;
+	 break;
+	 }
+	 }
+	 }
+	 }
+	
+	 boolean senhaCorreta = true;
+	 for (int i = 0; i < 4; i++) {
+	 if (senhatentativa[i] != senhacorretaArray[i]) {
+	 senhaCorreta = false;
+	 break;
+	 }
+	 }
+	 if (senhaCorreta) {
+	 System.out.println("Congratulations! You got the password right!");
+	 break;
+	 } else {
+	 	contador++;
+	 	if(contador <=10) {
+		 System.out.println(contador+ " Attempt(s), try again" );
+	 	}
+		 System.out.println("Correct digits: "+digitosCorretos);
+		 System.out.println("Shifted digits: "+digitosDeslocados);
+	 }
+	 if (contador > 10) {
+	 System.out.println("You lost the game, your attempts are over!");
+	 System.out.println("The password is: ");
+	 for (int i = 0; i < 4; i++) {
+	 	 System.out.println(senhacorretaArray[i]);
+	 }
+	 break;
+	 }
+	
+	 }
+	 continuarJogo();
+}
+		public static void continuarJogo() {
+	 String continuar;
+	 Scanner ler = new Scanner(System.in);
+	 System.out.println("Do you want to continue playing, yes or no?: ");
+	 continuar = ler.next();
+	 if(continuar.equalsIgnoreCase("Yes")) {
+	 	jogo();
+	 } else if(continuar.equalsIgnoreCase("No")|| continuar.equals("NO")) {
+	 	System.exit(0);
+	 } else {
+	 	System.out.println("Invalid Option, Enter 'Yes' or 'No': ");
+	 	continuarJogo();
+	 }
+	
+	}}
+
+
+
